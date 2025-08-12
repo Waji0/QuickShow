@@ -40,6 +40,7 @@ export const AppProvider = ({ children }) => {
         }
     };
 
+
     const fetchShows = async () => {
         try {
             
@@ -55,6 +56,7 @@ export const AppProvider = ({ children }) => {
             console.error(error);
         }
     };
+
 
     const fetchFavoriteMovies = async () => {
         try {
@@ -74,10 +76,12 @@ export const AppProvider = ({ children }) => {
         }
     };
 
+
     useEffect(() => {
         fetchShows();
-    }, [])
+    }, []);
 
+    
     useEffect(() => {
 
         if(user) {
@@ -86,6 +90,7 @@ export const AppProvider = ({ children }) => {
         }
 
     }, [user]);
+
 
     const value = {
         axios,

@@ -13,10 +13,11 @@ const Navbar = () => {
   const { openSignIn } = useClerk(); 
   const navigate = useNavigate();
 
-  const {favoriteMovies} = useAppContext();
+  const { favoriteMovies = [] } = useAppContext();
   
   return (
     <div className='fixed top-0 left-0 z-50 w-full flex items-center justify-between px-6 md:px-16 lg:px-36 py-5'>
+      
       <Link to='/' className='max-md:flex-1'>
         <img src={assets.logo} alt='' className='w-36 h-auto' />
       </Link>
@@ -31,11 +32,12 @@ const Navbar = () => {
         <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}} to='/movies'>Movies</Link>
         <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}} to='/'>Theaters</Link>
         <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}} to='/'>Releases</Link>
-        {favoriteMovies.length > 0 && <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}} to='/favorite'>Favorite</Link>}
+        {favoriteMovies?.length > 0 && <Link onClick={() => {scrollTo(0,0); setIsOpen(false)}} to='/favorite'>Favorite</Link>}
+      
       </div>
 
       <div className='flex items-center gap-8'>
-        <SearchIcon className='max-md:hidden w-6 h-6 cursor-ponter' />
+        <SearchIcon className='max-md:hidden w-6 h-6 cursor-pointer' />
         {/* <button className='px-4 py-1 sm:px-7 sm:py-2 bg-primary hover:bg-primary-dull transition rounded-full font-medium cursor-pointer' >
           Login</button> */}
           { 
@@ -57,9 +59,9 @@ const Navbar = () => {
           }
       </div>
 
-      <MenuIcon className='max-md:ml-4 md:hidden w-8 h-8 cursor-ponter' onClick={() => {setIsOpen(!isOpen)}} />
+      <MenuIcon className='max-md:ml-4 md:hidden w-8 h-8 cursor-pointer' onClick={() => {setIsOpen(!isOpen)}} />
     </div>
   )
 }
 
-export default Navbar
+export default Navbar;

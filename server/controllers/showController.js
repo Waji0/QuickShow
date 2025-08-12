@@ -3,6 +3,8 @@ import Movie from '../models/Movie.js';
 import Show from '../models/Show.js';
 
 
+
+
 // API to get now-playing movies from TMDB API
 export const getNowPlayingMovies =  async (req, res) => {
     try {
@@ -18,6 +20,7 @@ export const getNowPlayingMovies =  async (req, res) => {
         res.json({success: false, movies: error.message});
     }
 };
+
 
 // API to add a new show to the database
 export const addShow = async (req, res) => {
@@ -87,6 +90,12 @@ export const addShow = async (req, res) => {
             await Show.insertMany(showsToCreate);
         }
 
+        // Trigger Inngest event
+        await inngest.send({
+            name: "app/show.added",
+            data: {movieTitle: movie.title}
+        })
+
         res.json({success: true, message: 'Show Added successfully'});
 
     } catch (error) {
@@ -95,18 +104,19 @@ export const addShow = async (req, res) => {
     }
 };
 
+
 // API to get all shows from the database
 export const getShows = async (req, res) => {
     try {
         
         const shows = await Show.find({showDateTime: {$gte: new Date()}}).populate('movie').sort({ showDateTime: 1});
-        // console.log(shows);
+        console.log(shows);
 
         // filter unique shows
         const uniqueShows = new Set(shows.map(show => show.movie));
         res.json({success: true, shows: Array.from(uniqueShows)});
-        // console.log("////");
-        // console.log(uniqueShows);
+        console.log("////");
+        console.log(uniqueShows);
 
     } catch (error) {
         console.error(error);

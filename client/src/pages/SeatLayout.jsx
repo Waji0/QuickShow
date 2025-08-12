@@ -90,7 +90,7 @@ const SeatLayout = () => {
         })
       }
     </div>
-  )
+  );
 
   const getOccupiedSeats = async () => {
     try {
@@ -157,6 +157,7 @@ const SeatLayout = () => {
         </div>
       </div>
 
+        {/* Seat Layout */}
       <div className="relative flex-1 flex flex-col items-center max-md:mt-16">
           <BlurCircle top="-100px" left="-100px"/>
           <BlurCircle bottom="0" right="0"/>

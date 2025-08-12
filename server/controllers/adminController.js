@@ -3,10 +3,13 @@ import Show from "../models/Show.js";
 import User from "../models/User.js";
 
 
+
+
 // API to check if user is admin
 export const isAdmin = (req, res) => {
     res.json({success: true, isAdmin: true});
 };
+
 
 // API to get dashboard data
 export const getDashboardData = async (req, res) => {
@@ -31,6 +34,7 @@ export const getDashboardData = async (req, res) => {
     }
 };
 
+
 // API to get all shows
 export const getAllShows = async (req, res) => {
     try {
@@ -43,6 +47,7 @@ export const getAllShows = async (req, res) => {
         res.json({success: false, message: error.message});
     }
 };
+
 
 // API to get all bookings
 export const getAllBookings = async (req, res) => {

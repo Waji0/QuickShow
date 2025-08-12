@@ -22,6 +22,7 @@ export const getUserBookings = async (req, res) => {
     }
 };
 
+
 // // API controller Funtion to Add Favorite movie in clerk user Metadata
 // export const addFavorite = async (req, res) => {
 //     try {
@@ -47,6 +48,7 @@ export const getUserBookings = async (req, res) => {
 //         res.json({success: true, message: error.message});
 //     }
 // };
+
 
 // API controller Funtion to Update Favorite movie in clerk user Metadata
 export const updateFavorite = async (req, res) => {
@@ -75,6 +77,7 @@ export const updateFavorite = async (req, res) => {
         res.json({success: true, message: error.message});
     }
 };
+
 
 // API controller Funtion to get Favorite movies from clerk user Metadata
 export const getFavorites = async (req, res) => {

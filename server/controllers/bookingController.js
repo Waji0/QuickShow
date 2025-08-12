@@ -4,6 +4,7 @@ import stripe from 'stripe';
 import { inngest } from "../inngest/index.js";
 
 
+
 // Function to check availability of selected seats for a movie
 const checkSeatsAvailability = async (showId, selectedSeats) => {
     try {
@@ -23,6 +24,7 @@ const checkSeatsAvailability = async (showId, selectedSeats) => {
     }
 };
 
+
 //
 export const createBooking = async (req, res) => {
     try {
@@ -31,6 +33,7 @@ export const createBooking = async (req, res) => {
         // const userId = req.user._id; // via gpt
         const { showId, selectedSeats } = req.body;
         // const { origin } = req.header;
+        // const { origin } = req.headers; // actual withour error
         const origin = req.get('origin') || 'http://localhost:3000'; // via gpt
 
 
@@ -105,6 +108,7 @@ export const createBooking = async (req, res) => {
         res.json({success: false, message: error.message});
     }
 };
+
 
 //
 export const getOccupiedSeats =  async (req, res) => {
