@@ -60,6 +60,7 @@ const Dashboard = () => {
 
   return !loading ? (
     <>
+    
       <Title text1="Admin" text2="Dashboard" />
 
       <div className="relative flex flex-wrap gap-4 mt-6">
@@ -78,6 +79,7 @@ const Dashboard = () => {
       </div>
 
       <p className="mt-10 text-lg font-medium">Active Shows</p>
+
       <div className="relative flex flex-wrap gap-6 mt-4 max-w-5xl">
           <BlurCircle top="100px" left="-10px"/>
           {dashboardData.activeShows.map((show) => (
@@ -94,7 +96,8 @@ const Dashboard = () => {
               <p className="px-2 pt-2 text-sm text-gray-500">{dateFormat(show.showDateTime)}</p>
             </div>
           ))}
-      </div>    
+      </div>  
+
     </>
   ) : <Loading />
 }

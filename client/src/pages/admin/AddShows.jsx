@@ -112,9 +112,12 @@ const AddShows = () => {
 
   return nowPlayingMovies.length > 0 ? (
     <>
+
       <Title text1="Add" text2="Shows" />
+
       <p className="mt-10 text-lg font-medium">Now Playing Movies</p>
-      <div className="overflow-x-auto pb-4">
+
+      <div className="max-w-5xl overflow-x-auto pb-4">
         <div className="group flex flex-wrap gap-4 mt-4 w-max">
             {nowPlayingMovies.map((movie) => (
               <div key={movie.id} className={`relative max-w-40 cursor-pointer group-hover:not-hover:opacity-40 hover:-translate-y-1 transition duration-300`} onClick={() => {setSelectedMovie(movie.id)}}>
@@ -185,6 +188,7 @@ const AddShows = () => {
       <button onClick={handleSubmit} disabled={addingShow} className="bg-[color:var(--color-primary)] text-white px-8 py-2 mt-6 rounded hover:bg-[color:var(--color-primary)]/90 transition-all cursor-pointer">
           Add Show
       </button>
+
     </>
   ) : <Loading />
 }

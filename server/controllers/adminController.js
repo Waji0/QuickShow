@@ -10,8 +10,20 @@ export const isAdmin = (req, res) => {
     res.json({success: true, isAdmin: true});
 };
 
+// export const isAdmin = (req, res) => {
+//     // Now we can trust the middleware has already verified admin status
+//     res.status(200).json({
+//         success: true,
+//         isAdmin: true,
+//         user: req.user // Optional: send back user details
+//     });
+// };
+
 
 // API to get dashboard data
+
+
+
 export const getDashboardData = async (req, res) => {
     try {
         

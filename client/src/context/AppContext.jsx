@@ -24,9 +24,17 @@ export const AppProvider = ({ children }) => {
     const fetchIsAdmin = async () => {
         try {
             
-            const {data} = await axios.get('/api/admin/is-admin', {
-                headers: {Authorization: `Bearer ${await getToken()}`}
+            // const {data} = await axios.get('/api/admin/is-admin', {
+            //     headers: {Authorization: `Bearer ${await getToken()}`}
+            // });
+
+            const token = await getToken();
+            console.log("Token being sent:", token);
+
+            const { data } = await axios.get("/api/admin/is-admin", {
+              headers: { Authorization: `Bearer ${token}` },
             });
+
             
             setIsAdmin(data.isAdmin);
 
@@ -39,6 +47,7 @@ export const AppProvider = ({ children }) => {
             console.error(error);
         }
     };
+
 
 
     const fetchShows = async () => {
