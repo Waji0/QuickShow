@@ -29,7 +29,7 @@ export const AppProvider = ({ children }) => {
             // });
 
             const token = await getToken();
-            console.log("Token being sent:", token);
+            // console.log("Token being sent:", token);
 
             const { data } = await axios.get("/api/admin/is-admin", {
               headers: { Authorization: `Bearer ${token}` },
