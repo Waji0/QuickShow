@@ -116,12 +116,14 @@ const SeatLayout = () => {
       const {data} = await axios.post('/api/booking/create', {showId: selectedTime.showId, selectedSeats},
         { headers: {Authorization: `Bearer ${await getToken()}`}
       });
+      // console.log("data found in SeatLayout.jsx");
 
       if(data.success) {
         // toast.success(data.message);
         // navigate('/my-bookings');
         window.location.href = data.url;
       } else {
+        // console.log("data.success fail in SeatLayout.jsx");
         toast.error(data.message)
       }
       

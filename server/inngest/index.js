@@ -7,7 +7,6 @@ import sendEmail from "../configs/nodeMailer.js";
 
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "movie-ticket-booking", eventKey: process.env.INNGEST_EVENT_KEY });
-
 // Inngest Function to save user data to a database
 const syncUserCreation = inngest.createFunction(
     {id: 'sync-user-from-clerk'},
