@@ -1,4 +1,6 @@
-import nodeMailer from 'nodeMailer';
+// import nodeMailer from 'nodeMailer';
+import nodemailer from 'nodemailer';
+
 
 const transport = nodeMailer.createTransport({
     host: "smtp-relay.brevo.com",
