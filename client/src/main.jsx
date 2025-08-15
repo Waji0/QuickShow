@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { ClerkProvider } from '@clerk/clerk-react'
-import HeroSection from './components/HeroSection.jsx'
+// import HeroSection from './components/HeroSection.jsx'
 import { AppProvider } from './context/AppContext.jsx'
 
 

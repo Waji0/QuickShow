@@ -115,8 +115,8 @@ export const getShows = async (req, res) => {
         // filter unique shows
         const uniqueShows = new Set(shows.map(show => show.movie));
         res.json({success: true, shows: Array.from(uniqueShows)});
-        console.log("////");
-        console.log(uniqueShows);
+        // console.log("////");
+        // console.log(uniqueShows);
 
     } catch (error) {
         console.error(error);
