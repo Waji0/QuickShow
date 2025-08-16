@@ -110,6 +110,94 @@ export const createBooking = async (req, res) => {
 };
 
 
+// export const createBooking = async (req, res) => {
+//     try {
+//         const { userId } = await req.auth();
+//         const { showId, selectedSeats } = req.body;
+//         const origin = req.get('origin') || 'http://localhost:3000';
+
+//         // Check if the seat is available for the selected show
+//         const isAvailable = await checkSeatsAvailability(showId, selectedSeats);
+
+//         if (!isAvailable) {
+//             return res.json({ success: false, message: "Selected Seats are not available."});
+//         }
+
+//         // Get the show details
+//         const showData = await Show.findById(showId).populate('movie');
+
+//         // Create a new booking
+//         const booking = await Booking.create({
+//             user: userId,
+//             show: showId,
+//             amount: showData.showPrice * selectedSeats.length,
+//             bookedSeats: selectedSeats
+//         });
+
+//         selectedSeats.map((seat) => {
+//             showData.occupiedSeats[seat] = userId;
+//         });
+
+//         showData.markModified('occupiedSeats');
+//         await showData.save();
+
+//         // Stripe Gateway Initialize
+//         const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY);
+        
+//         // Creating line items for Stripe
+//         const line_items = [{
+//             price_data: {
+//                 currency: 'usd',
+//                 product_data: {
+//                     name: showData.movie.title
+//                 },
+//                 unit_amount: Math.floor(booking.amount) * 100
+//             },
+//             quantity: 1
+//         }];
+
+//         const session = await stripeInstance.checkout.sessions.create({
+//             success_url: `${origin}/loading/my-bookings`,
+//             cancel_url: `${origin}/my-bookings`,
+//             line_items: line_items,
+//             mode: 'payment',
+//             metadata: {
+//                 bookingId: booking._id.toString()
+//             },
+//             expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // Expires in 30 minutes
+//         });
+
+//         booking.paymentLink = session.url;
+//         await booking.save();
+
+//         // Add error handling for Inngest event
+//         try {
+//             console.log('Attempting to send Inngest event...');
+//             console.log('Event data:', { bookingId: booking._id.toString() });
+            
+//             await inngest.send({
+//                 name: "app/checkpayment",
+//                 data: {
+//                     bookingId: booking._id.toString()
+//                 }
+//             });
+            
+//             console.log('Inngest event sent successfully');
+//         } catch (inngestError) {
+//             console.error('Inngest event failed, but continuing with booking:', inngestError);
+//             // Don't fail the entire booking process if Inngest fails
+//             // You might want to implement a fallback mechanism here
+//         }
+
+//         res.json({ success: true, url: session.url});
+
+//     } catch (error) {
+//         console.log('Booking creation error:', error.message);
+//         res.json({success: false, message: error.message});
+//     }
+// };
+
+
 //
 export const getOccupiedSeats =  async (req, res) => {
     try {
