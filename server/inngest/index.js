@@ -277,63 +277,25 @@ const sendShowReminders = inngest.createFunction(
 
 
 // Inngest function to send notification when a new show is added
-// const sendNewShowNotifications = inngest.createFunction(
-//     {id: "send-new-show-notifications"},
-//     { event: "app/show.added" },
-//     async ({ event }) => {
-//         const { movieTitle } = event.data;
-
-//         // const users = await User.email;
-//         const users = await User.find({}, "email name"); // get only email and name fields
-
-
-//         console.log("Inside app/show.added event before sending mail");
-
-//         for(const user of users) {
-//             const userEmail = user.email;
-//             const userName = user.name;
-
-//             const subject = `filmIcon New Show Added: ${movieTitle}`;
-//             const body = `<div style="font-family: Arial, sans-serif; padding: 20px;">
-//                                 <h2>Hi ${userName},</h2>
-//                                 <p>We've just added a new show to our library:</p>
-//                                 <h3 style="color: #F84565">${movieTitle}</h3>
-//                                 <p>Visit our website</p>
-//                                 <br />
-//                                 <p>Thanks<br />- QuickShow Team</p>
-//                             </div>`;
-
-//                 await sendEmail({
-//                     to: userEmail,
-//                     subject,
-//                     body,
-//                 });
-//         }
-
-//         console.log("Inside app/show.added event after sending mail");
-
-//         return {message: "Notifications sent." }
-
-//     }
-// );
-
 const sendNewShowNotifications = inngest.createFunction(
-    { id: "send-new-show-notifications", 
-    name: "Send New Show Notifications" },
+    {id: "send-new-show-notifications"},
     { event: "app/show.added" },
     async ({ event }) => {
         const { movieTitle } = event.data;
 
-        // const users = await User.find({}, "email name"); // FIX: Query database
-        const users = await User.find({}, "email name").lean();
+        // const users = await User.email;
+        const users = await User.find({}, "email name"); // get only email and name fields
 
 
         console.log("Inside app/show.added event before sending mail");
 
-        for (const user of users) {
+        for(const user of users) {
+            const userEmail = user.email;
+            const userName = user.name;
+
             const subject = `filmIcon New Show Added: ${movieTitle}`;
             const body = `<div style="font-family: Arial, sans-serif; padding: 20px;">
-                                <h2>Hi ${user.name},</h2>
+                                <h2>Hi ${userName},</h2>
                                 <p>We've just added a new show to our library:</p>
                                 <h3 style="color: #F84565">${movieTitle}</h3>
                                 <p>Visit our website</p>
@@ -341,18 +303,56 @@ const sendNewShowNotifications = inngest.createFunction(
                                 <p>Thanks<br />- QuickShow Team</p>
                             </div>`;
 
-            await sendEmail({
-                to: user.email,
-                subject,
-                body,
-            });
+                await sendEmail({
+                    to: userEmail,
+                    subject,
+                    body,
+                });
         }
 
         console.log("Inside app/show.added event after sending mail");
 
-        return { message: "Notifications sent." };
+        return {message: "Notifications sent." }
+
     }
 );
+
+// const sendNewShowNotifications = inngest.createFunction(
+//     { id: "send-new-show-notifications", 
+//     name: "Send New Show Notifications" },
+//     { event: "app/show.added" },
+//     async ({ event }) => {
+//         const { movieTitle } = event.data;
+
+//         // const users = await User.find({}, "email name"); // FIX: Query database
+//         const users = await User.find({}, "email name").lean();
+
+
+//         console.log("Inside app/show.added event before sending mail");
+
+//         for (const user of users) {
+//             const subject = `filmIcon New Show Added: ${movieTitle}`;
+//             const body = `<div style="font-family: Arial, sans-serif; padding: 20px;">
+//                                 <h2>Hi ${user.name},</h2>
+//                                 <p>We've just added a new show to our library:</p>
+//                                 <h3 style="color: #F84565">${movieTitle}</h3>
+//                                 <p>Visit our website</p>
+//                                 <br />
+//                                 <p>Thanks<br />- QuickShow Team</p>
+//                             </div>`;
+
+//             await sendEmail({
+//                 to: user.email,
+//                 subject,
+//                 body,
+//             });
+//         }
+
+//         console.log("Inside app/show.added event after sending mail");
+
+//         return { message: "Notifications sent." };
+//     }
+// );
 
 // Export all Inngest functions
 export const functions = [
