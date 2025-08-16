@@ -1,4 +1,3 @@
-// import nodeMailer from 'nodeMailer';
 import nodemailer from 'nodemailer';
 
 
